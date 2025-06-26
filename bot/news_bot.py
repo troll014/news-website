@@ -85,8 +85,11 @@ def publish_news_to_firebase(articles):
             print(f"Article '{article['title']}' already exists. Skipping.")
             continue
         # Add new article
-        db.collection("news").add(article)
-        print(f"Published article '{article['title']}' to Firebase.")
+        try:
+            db.collection("news").add(article)
+            print(f"Published article '{article['title']}' to Firebase.")
+        except Exception as e:
+            print(f"Failed to publish article '{article['title']}': {e}")
 
 def main():
     print("Iniciando el bot de noticias...")
