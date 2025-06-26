@@ -28,7 +28,7 @@ export default function HomePage() {
             id: doc.id,
             title: data.title,
             content: data.content,
-            publishedAt: data.publishedAt.toDate(),
+            publishedAt: new Date(data.publishedAt),
           });
         });
         setNews(newsData);
