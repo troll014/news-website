@@ -29,7 +29,7 @@ def scrape_news():
             for article in soup.select("article"):
                 try:
                     title_elem = article.select_one("h2")
-                    summary_elem = article.select_one("div.c_d")
+                    summary_elem = article.select_one("p") or article.select_one("div.c_d")
                     image_elem = article.select_one("img")
                     if title_elem:
                         title = title_elem.get_text(strip=True)
