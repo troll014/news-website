@@ -8,7 +8,9 @@ WORKDIR /bot
 COPY bot/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY bot/ .
+# Copy bot source code and credentials separately
+COPY bot/news_bot.py .
+COPY bot/firebase_credentials.json .
 
 # Run the bot script
 CMD ["python", "news_bot.py"]

@@ -32,6 +32,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Firebase credentials
+**/firebase_credentials.json
+
 # Python
 __pycache__/
 *.py[cod]
