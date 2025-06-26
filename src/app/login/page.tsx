@@ -18,8 +18,12 @@ export default function LoginPage() {
       await signInWithEmailAndPassword(auth, email, password);
       // Redirect or update UI on successful login
       alert("Inicio de sesión exitoso");
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An error occurred during login');
+      }
     } finally {
       setLoading(false);
     }

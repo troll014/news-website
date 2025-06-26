@@ -25,8 +25,12 @@ export default function RegisterPage() {
       await createUserWithEmailAndPassword(auth, email, password);
       alert("Registro exitoso");
       // Optionally redirect or update UI
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An error occurred during registration');
+      }
     } finally {
       setLoading(false);
     }
