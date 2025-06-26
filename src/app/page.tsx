@@ -42,22 +42,29 @@ export default function HomePage() {
   }, []);
 
   return (
-    <main className="max-w-4xl mx-auto p-6">
-      <h1 className="text-4xl font-bold mb-8 text-black">Noticias</h1>
+    <main className="max-w-5xl mx-auto p-8 bg-white min-h-screen font-sans">
+      <h1 className="text-5xl font-extrabold mb-12 text-gray-900 tracking-tight font-serif border-b border-gray-300 pb-4">
+        Noticias
+      </h1>
       {loading ? (
-        <p>Cargando noticias...</p>
+        <p className="text-center text-gray-600 text-lg">Cargando noticias...</p>
       ) : news.length === 0 ? (
-        <p>No hay noticias disponibles.</p>
+        <p className="text-center text-gray-600 text-lg">No hay noticias disponibles.</p>
       ) : (
-        news.map((article) => (
-          <article key={article.id} className="mb-6 border-b border-gray-300 pb-4">
-            <h2 className="text-2xl font-semibold mb-2">{article.title}</h2>
-            <p className="text-gray-700 mb-2">{article.content}</p>
-            <time className="text-sm text-gray-500">
-              {article.publishedAt.toLocaleDateString()}
-            </time>
-          </article>
-        ))
+        <div className="space-y-8">
+          {news.map((article) => (
+            <article
+              key={article.id}
+              className="p-6 border border-gray-300 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+            >
+              <h2 className="text-3xl font-semibold mb-3 text-gray-900">{article.title}</h2>
+              <p className="text-gray-700 mb-4 leading-relaxed">{article.content}</p>
+              <time className="text-sm text-gray-500">
+                {article.publishedAt.toLocaleDateString()}
+              </time>
+            </article>
+          ))}
+        </div>
       )}
     </main>
   );
