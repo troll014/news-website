@@ -23,3 +23,5 @@ services:
       context: .
       dockerfile: Dockerfile.bot
     restart: unless-stopped
+    volumes:
+      - ./bot/firebase_credentials.json:/bot/firebase_credentials.json:ro
