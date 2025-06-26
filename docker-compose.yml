@@ -24,4 +24,7 @@ services:
       dockerfile: Dockerfile.bot
     restart: unless-stopped
     volumes:
-      - ./bot/firebase_credentials.json:/bot/firebase_credentials.json:ro
+      - type: bind
+        source: ./bot/firebase_credentials.json
+        target: /bot/firebase_credentials.json
+        read_only: true
