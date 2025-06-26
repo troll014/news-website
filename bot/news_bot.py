@@ -27,18 +27,21 @@ def scrape_news():
         try:
             title_elem = article.select_one("h2")
             summary_elem = article.select_one("div.c_d")
+            image_elem = article.select_one("img")
             
             if title_elem:
                 title = title_elem.get_text(strip=True)
                 content = summary_elem.get_text(strip=True) if summary_elem else "No hay resumen disponible"
                 published_at = datetime.datetime.now()
+                image_url = image_elem['src'] if image_elem and image_elem.has_attr('src') else None
                 
                 if title and not any(a['title'] == title for a in articles):  # Avoid duplicates
                     articles.append({
                         "title": title,
                         "content": content,
                         "publishedAt": published_at,
-                        "source": "El País América"
+                        "source": "El País América",
+                        "imageUrl": image_url
                     })
                     print(f"Scraped article: {title}")
         except Exception as e:
