@@ -76,9 +76,9 @@ from firebase_admin import firestore
 def publish_news_to_firebase(articles):
     for article in articles:
         # Convert datetime to Firestore Timestamp field
-        article['timestamp'] = firestore.Timestamp.from_datetime(article['publishedAt'])
-        # Convert publishedAt to ISO string for compatibility
-        article['publishedAt'] = article['publishedAt'].isoformat()
+        timestamp = firestore.Timestamp.from_datetime(article['publishedAt'])
+        article['timestamp'] = timestamp
+        article['publishedAt'] = timestamp
         # Check if article already exists by title
         docs = db.collection("news").where("title", "==", article["title"]).stream()
         if any(docs):
