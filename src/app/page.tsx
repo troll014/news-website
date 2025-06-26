@@ -82,7 +82,9 @@ export default function HomePage() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-700 mb-4 leading-relaxed">
-                    {article.content}
+                    {article.content && article.content !== "No hay resumen disponible"
+                      ? article.content
+                      : "Resumen no disponible."}
                   </p>
                   <time className="text-sm text-gray-500">
                     {article.publishedAt.toLocaleDateString('es-ES', {
