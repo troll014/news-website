@@ -12,6 +12,7 @@ interface NewsArticle {
   title: string;
   content: string;
   publishedAt: Date;
+  imageUrl?: string;
 }
 
 export default function HomePage() {
@@ -32,6 +33,7 @@ export default function HomePage() {
             title: data.title,
             content: data.content,
             publishedAt: new Date(data.publishedAt),
+            imageUrl: data.imageUrl || data.image || null,
           });
         });
         setNews(newsData);
@@ -75,6 +77,13 @@ export default function HomePage() {
           <div className="grid gap-6">
             {news.map((article) => (
               <Card key={article.id} className="bg-white hover:shadow-lg transition-shadow duration-200">
+                {article.imageUrl && (
+                  <img
+                    src={article.imageUrl}
+                    alt={article.title}
+                    className="w-full h-64 object-cover rounded-t-lg"
+                  />
+                )}
                 <CardHeader>
                   <h2 className="text-2xl font-semibold text-gray-900 leading-tight">
                     {article.title}
