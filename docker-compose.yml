@@ -17,6 +17,11 @@ services:
     ports:
       - "4000:4000"
     restart: unless-stopped
+    volumes:
+      - type: bind
+        source: ./server/firebase_credentials.json
+        target: /server/firebase_credentials.json
+        read_only: true
 
   bot:
     build:
