@@ -26,6 +26,11 @@ app.get('/api/news', async (req, res) => {
     const newsRef = db.collection('news');
     const snapshot = await newsRef.orderBy('publishedAt', 'desc').get();
     
+    console.log(`Fetched ${snapshot.size} news documents`);
+    snapshot.forEach(doc => {
+      console.log(`Document ID: ${doc.id}`);
+    });
+    
     const news = [];
     snapshot.forEach(doc => {
       news.push({
