@@ -1,0 +1,14 @@
+# Use official Python image
+FROM python:3.11-slim
+
+# Set working directory
+WORKDIR /bot
+
+# Copy bot script and requirements
+COPY bot/requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY bot/ .
+
+# Run the bot script
+CMD ["python", "news_bot.py"]
