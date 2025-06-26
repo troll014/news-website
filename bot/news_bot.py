@@ -48,9 +48,14 @@ def scrape_news():
             print(f"Error processing article: {e}")
     return articles
 
+from firebase_admin import firestore
+
 def publish_news_to_firebase(articles):
     for article in articles:
-        # Convert datetime to string for Firestore
+        # Convert datetime to Firestore Timestamp field
+        article['timestamp'] = firestore.Timestamp.from_datetime(article['publishedAt'])
+        
+        # Convert publishedAt to ISO string for compatibility
         article['publishedAt'] = article['publishedAt'].isoformat()
         
         # Check if article already exists by title
