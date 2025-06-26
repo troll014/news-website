@@ -4,9 +4,13 @@ FROM python:3.11-slim
 # Set working directory
 WORKDIR /bot
 
-# Copy entire bot directory
-COPY bot/ ./
+# Copy requirements first to leverage Docker cache
+COPY bot/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy bot files
+COPY bot/news_bot.py .
+COPY bot/firebase_credentials.json ./firebase_credentials.json
 
 # Run the bot script
 CMD ["python", "news_bot.py"]
