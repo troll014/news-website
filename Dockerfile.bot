@@ -4,13 +4,9 @@ FROM python:3.11-slim
 # Set working directory
 WORKDIR /bot
 
-# Copy bot script and requirements
-COPY bot/requirements.txt ./
+# Copy entire bot directory
+COPY bot/ ./
 RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy bot source code and credentials separately
-COPY bot/news_bot.py .
-COPY bot/firebase_credentials.json .
 
 # Run the bot script
 CMD ["python", "news_bot.py"]
