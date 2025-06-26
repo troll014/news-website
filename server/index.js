@@ -24,7 +24,7 @@ app.get('/api/health', (req, res) => {
 app.get('/api/news', async (req, res) => {
   try {
     const newsRef = db.collection('news');
-    const snapshot = await newsRef.orderBy('timestamp', 'desc').get();
+    const snapshot = await newsRef.orderBy('publishedAt', 'desc').get();
     
     const news = [];
     snapshot.forEach(doc => {
@@ -39,6 +39,22 @@ app.get('/api/news', async (req, res) => {
     console.error('Error fetching news:', error.message);
     console.error('Full error:', error);
     res.status(500).json({ error: error.message || 'Failed to fetch news' });
+  }
+});
+
+// Get news article by ID
+app.get('/api/news/:id', async (req, res) => {
+  try {
+    const docRef = db.collection('news').doc(req.params.id);
+    const doc = await docRef.get();
+    if (!doc.exists) {
+      return res.status(404).json({ error: 'Noticia no encontrada' });
+    }
+    res.json({ id: doc.id, ...doc.data() });
+  } catch (error) {
+    console.error('Error fetching news by ID:', error.message);
+    console.error('Full error:', error);
+    res.status(500).json({ error: error.message || 'Failed to fetch news by ID' });
   }
 });
 
