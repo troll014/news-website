@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    ports:
+      - "4000:4000"
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: ./server/firebase_credentials.json
+        target: /server/firebase_credentials.json
+        read_only: true
+
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: ./bot/firebase_credentials.json
+        target: /bot/firebase_credentials.json
+        read_only: true
